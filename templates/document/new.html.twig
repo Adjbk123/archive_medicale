@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Document{% endblock %}
+{% block breadcrumb %}Documents{% endblock %}
+{% block bouton %}
+    <a class="btn btn-primary" href="{{ path('app_document_index') }}">Retour à la liste</a>
+{% endblock %}
+
+{% block body %}
+
+
+    {{ include('document/_form.html.twig') }}
+
+
+{% endblock %}

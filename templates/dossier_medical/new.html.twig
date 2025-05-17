@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New DossierMedical{% endblock %}
+{% block breadcrumb %} Dossier Medical{% endblock %}
+{% block bouton %}
+    <a href="{{ path('app_dossier_medical_index') }}" class="btn btn-primary">Retour à la liste</a>
+
+{% endblock %}
+
+{% block body %}
+
+    {% for message in app.flashes('notice') %}
+        <div class="alert alert-dismissible fade show py-2 border-0 border-start border-4 border-danger">
+            <div class="d-flex align-items-center">
+                <div class="fs-3 text-danger"><ion-icon name="close-circle-sharp" role="img" class="md hydrated" aria-label="close circle sharp"></ion-icon>
+                </div>
+                <div class="ms-3">
+                    <div class="text-danger"> {{ message }}</div>
+                </div>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+    {% endfor %}
+
+
+    {{ include('dossier_medical/_form.html.twig') }}
+
+{% endblock %}

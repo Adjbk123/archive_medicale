@@ -1,0 +1,96 @@
+{# templates/patient/dossiers.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Dossiers Médicaux de {{ patient.user.prenoms }} {{ patient.user.nom }}{% endblock %}
+{% block breadcrumb %}
+    Dossiers Médicaux
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1>Dossiers Médicaux de {{ patient.user.prenoms }} {{ patient.user.nom }}</h1>
+            </div>
+            <div class="card-body">
+                <p><strong>Date de naissance :</strong> {{ patient.dateNaissance|date('d/m/Y') }}</p>
+                <p><strong>Adresse :</strong> {{ patient.adresse }}</p>
+                <p><strong>Numéro de téléphone :</strong> {{ patient.telephone }}</p>
+
+                <h2 class="mt-4">Dossiers Médicaux</h2>
+                {% if dossiers is not empty %}
+                    <div class="accordion" id="dossierAccordion">
+                        {% for dossier in dossiers %}
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading{{ dossier.id }}">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ dossier.id }}" aria-expanded="false" aria-controls="collapse{{ dossier.id }}">
+                                        Dossier créé le {{ dossier.dateCreation|date('d/m/Y') }}
+                                    </button>
+                                </h2>
+                                <div id="collapse{{ dossier.id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ dossier.id }}" data-bs-parent="#dossierAccordion">
+                                    <div class="accordion-body">
+                                        <p><strong>Dernière mise à jour :</strong> {{ dossier.derniereMiseAJour|date('d/m/Y') }}</p>
+                                        <h3>Documents</h3>
+                                        {% if dossier.documents is not empty %}
+                                            <ul class="list-group">
+                                                {% for document in dossier.documents %}
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        {{ document.typeDocument.libelle }} - {{ document.dateDocument|date('d/m/Y') }}
+                                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#documentModal{{ document.id }}">Voir le document</button>
+
+                                                        <!-- Modal -->
+                                                        <div class="modal fade" id="documentModal{{ document.id }}" tabindex="-1" aria-hidden="true">
+                                                            <div class="modal-dialog modal-fullscreen">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="documentModalLabel{{ document.id }}">{{ document.typeDocument.libelle }}</h5>
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <p><strong>Date du document :</strong> {{ document.dateDocument|date('d/m/Y') }}</p>
+                                                                        <p><strong>Type de document :</strong> {{ document.typeDocument.libelle }}</p>
+                                                                        <iframe src="{{ asset('uploads/') }}{{ document.fichier }}" frameborder="0" width="100%" height="600px"></iframe>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% else %}
+                                            <p>Aucun document trouvé dans ce dossier.</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>Aucun dossier médical trouvé pour ce patient.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .card-header h1 {
+            font-size: 1.5rem;
+        }
+        .accordion-button {
+            background-color: #f8f9fa;
+        }
+        .accordion-button:not(.collapsed) {
+            color: #000;
+            background-color: #e9ecef;
+        }
+        .modal-fullscreen .modal-body {
+            padding: 2rem;
+        }
+    </style>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un admin  {% endblock %}
+{% block breadcrumb %}Utilisateurs{% endblock %}
+{% block bouton %}
+    <a class="btn btn-outline-primary " href="{{ path('app_user_index') }}">Retour</a>
+{% endblock %}
+
+{% block body %}
+
+    {{ include('user/_form.html.twig') }}
+
+
+{% endblock %}

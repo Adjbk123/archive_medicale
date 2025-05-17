@@ -1,0 +1,188 @@
+<aside class="sidebar-wrapper" data-simplebar="true">
+    <div class="sidebar-header">
+        <div>
+            <img src="{{ asset('assets/images/logo-icon-2.png') }}" class="logo-icon" alt="logo icon">
+        </div>
+        <div>
+            <h4 class="logo-text">Gestion Médicale</h4>
+        </div>
+    </div>
+    <!--navigation-->
+    <ul class="metismenu" id="menu">
+        <!-- Dashboard -->
+        <li>
+            <a href="{{ path('app_admin') }}">
+                <div class="parent-icon">
+                    <ion-icon name="home-outline"></ion-icon>
+                </div>
+                <div class="menu-title">Tableau de bord</div>
+            </a>
+        </li>
+
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MEDECIN') %}
+        <!-- Patients -->
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon">
+                    <ion-icon name="person-outline"></ion-icon>
+                </div>
+                <div class="menu-title">Patients</div>
+            </a>
+            <ul>
+                <li><a href="{{ path('app_patient_index') }}">
+                        <ion-icon name="ellipse-outline"></ion-icon>Liste des Patients
+                    </a></li>
+                <li>
+                    <a href="{{ path('app_patient_new') }}">
+                        <ion-icon name="ellipse-outline"></ion-icon>Ajouter un Patient
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+        <!-- Documents -->
+
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon">
+                    <ion-icon name="document-outline"></ion-icon>
+                </div>
+                <div class="menu-title">Documents</div>
+            </a>
+            <ul>
+                <li><a href="{{ path('app_document_index') }}">
+                        <ion-icon name="ellipse-outline"></ion-icon>Archive de Documents
+                    </a></li>
+
+
+
+                <li><a href="{{ path('app_document_new') }}">
+                        <ion-icon name="ellipse-outline"></ion-icon>Uploader un Document
+                    </a></li>
+                <li><a href="{{ path('app_type_document_index') }}">
+                        <ion-icon name="ellipse-outline"></ion-icon>Catégories de Documents
+                    </a></li>
+            </ul>
+        </li>
+        {% endif %}
+        <!-- Médecins -->
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon">
+                    <ion-icon name="medkit-outline"></ion-icon>
+                </div>
+                <div class="menu-title">Dossiers  Médicaux</div>
+            </a>
+            <ul>
+                {% if is_granted('ROLE_PATIENT') %}
+
+
+                <li><a href="{{ path('app_patient_index') }}">
+                        <ion-icon name="ellipse-outline"></ion-icon>Consulter
+                    </a></li>
+                <li>
+                    {% endif %}
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MEDECIN') %}
+
+                    <li><a href="{{ path('app_dossier_medical_index') }}">
+                        <ion-icon name="ellipse-outline"></ion-icon>Liste des dossiers
+                    </a></li>
+                <li><a href="{{ path('app_dossier_medical_new') }}">
+                        <ion-icon name="ellipse-outline"></ion-icon>Créer un dossier pour un patient
+                    </a></li>
+
+                {% endif %}
+            </ul>
+        </li>
+        {% if is_granted('ROLE_ADMIN') %}
+
+
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon">
+                    <ion-icon name="medkit-outline"></ion-icon>
+                </div>
+                <div class="menu-title">Médecins</div>
+            </a>
+            <ul>
+                <li><a href="{{ path('app_medecin_index') }}">
+                        <ion-icon name="ellipse-outline"></ion-icon>Liste des Médecins
+                    </a></li>
+                <li><a href="{{ path('app_medecin_new') }}">
+                        <ion-icon name="ellipse-outline"></ion-icon>Ajouter un Médecin
+                    </a></li>
+            </ul>
+        </li>
+        {% endif %}
+        <!-- Rendez-vous
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon">
+                    <ion-icon name="calendar-outline"></ion-icon>
+                </div>
+                <div class="menu-title">Rendez-vous</div>
+            </a>
+            <ul>
+                <li><a href="appointments-list.html">
+                        <ion-icon name="ellipse-outline"></ion-icon>Liste des Rendez-vous
+                    </a></li>
+                <li><a href="appointment-schedule.html">
+                        <ion-icon name="ellipse-outline"></ion-icon>Planifier un Rendez-vous
+                    </a></li>
+            </ul>
+        </li>-->
+
+
+        {% if is_granted('ROLE_ADMIN') %}
+
+
+        <!-- Utilisateurs -->
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon">
+                    <ion-icon name="people-outline"></ion-icon>
+                </div>
+                <div class="menu-title">Utilisateurs</div>
+            </a>
+            <ul>
+                <li><a href="{{ path('app_user_index') }}">
+                        <ion-icon name="ellipse-outline"></ion-icon>Liste des Utilisateurs
+                    </a></li>
+                <li><a href="user-add.html">
+                        <ion-icon name="ellipse-outline"></ion-icon>Ajouter un Utilisateur
+                    </a></li>
+
+            </ul>
+        </li>
+        {% endif %}
+
+        <!-- Paramètres -->
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon">
+                    <ion-icon name="settings-outline"></ion-icon>
+                </div>
+                <div class="menu-title">Paramètres</div>
+            </a>
+            <ul>
+                <li><a href="{{ path('app_profil') }}">
+                        <ion-icon name="ellipse-outline"></ion-icon>Profil Utilisateur
+                    </a></li>
+                <li><a href="{{ path('app_profil_password_edit') }}">
+                        <ion-icon name="ellipse-outline"></ion-icon>Sécurité
+                    </a></li>
+            </ul>
+        </li>
+
+        <!-- Aide / Déconnexion -->
+        <li>
+            <a href="{{ path('app_logout') }}">
+                <div class="parent-icon">
+                    <ion-icon name="log-out-outline"></ion-icon>
+                </div>
+                <div class="menu-title">Déconnexion</div>
+            </a>
+        </li>
+    </ul>
+    <!--end navigation-->
+</aside>

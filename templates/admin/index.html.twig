@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau de bord{% endblock %}
+{% block breadcrumb %}Main{% endblock %}
+
+{% block body %}
+
+    {% if is_granted('ROLE_PATIENT') %}
+
+
+    <div class="col-md-3">
+        <div class="card radius-10 shadow-none mb-0 bg-primary">
+            <div class="card-body text-white p-4">
+                <div class="d-flex align-items-center gap-3">
+                    <div>
+                        <ion-icon name="document-text-outline" role="img" class="md hydrated" aria-label="document text outline"></ion-icon>
+                    </div>
+                    <h6 class="mb-0">Nombre de dossiers</h6>
+                    <div class="ms-auto">{{ dossierPatientCount }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endif %}
+    {% if is_granted('ROLE_MEDECIN') or is_granted('ROLE_ADMIN') %}
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card radius-10 shadow-none mb-0 bg-primary">
+                <div class="card-body text-white p-4">
+                    <div class="d-flex align-items-center gap-3">
+                        <div>
+                            <ion-icon name="person-outline" role="img" class="md hydrated" aria-label="person outline"></ion-icon>
+                        </div>
+                        <h6 class="mb-0">Patients</h6>
+                        <div class="ms-auto">{{ patientsCount }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card radius-10 shadow-none mb-0 bg-success">
+                <div class="card-body text-white p-4">
+                    <div class="d-flex align-items-center gap-3">
+                        <div>
+                            <ion-icon name="medkit-outline" role="img" class="md hydrated" aria-label="medkit outline"></ion-icon>
+                        </div>
+                        <h6 class="mb-0">Médecins</h6>
+                        <div class="ms-auto">{{ medecinsCount }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card radius-10 shadow-none mb-0 bg-info">
+                <div class="card-body text-white p-4">
+                    <div class="d-flex align-items-center gap-3">
+                        <div>
+                            <ion-icon name="document-text-outline" role="img" class="md hydrated" aria-label="document text outline"></ion-icon>
+                        </div>
+                        <h6 class="mb-0">Dossiers Médicaux</h6>
+                        <div class="ms-auto">{{ dossiersCount }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card radius-10 shadow-none mb-0 bg-pink">
+                <div class="card-body text-white p-4">
+                    <div class="d-flex align-items-center gap-3">
+                        <div>
+                            <ion-icon name="document-outline" role="img" class="md hydrated" aria-label="document outline"></ion-icon>
+                        </div>
+                        <h6 class="mb-0">Documents</h6>
+                        <div class="ms-auto">{{ documentsCount }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endif %}
+{% endblock %}

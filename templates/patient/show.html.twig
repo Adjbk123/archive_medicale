@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Patient{% endblock %}
+{% block breadcrumb %}
+    Patients
+{% endblock %}
+
+{% block bouton %}
+    <a class="btn btn-primary"  href="{{ path('app_patient_index') }}">Retour à la liste</a>
+
+{% endblock %}
+{% block body %}
+    <table class="table table-hover">
+        <tbody>
+            <tr>
+                <th>Nom et prénoms</th>
+                <td>{{ patient.user.nom }} {{ patient.user.prenoms }}</td>
+            </tr>
+            <tr>
+                <th>Date de Naissance</th>
+                <td>{{ patient.dateNaissance ? patient.dateNaissance|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ patient.adresse }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ patient.telephone }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="d-flex">
+            <div class="me-3">
+                <a class="btn btn-primary" href="{{ path('app_patient_edit', {'id': patient.id}) }}">Modifier</a>
+
+            </div>
+            <div>
+                {{ include('patient/_delete_form.html.twig') }}
+
+            </div>
+
+        </div>
+
+    {% endif %}
+
+{% endblock %}

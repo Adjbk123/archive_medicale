@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New TypeDocument{% endblock %}
+
+{% block body %}
+    <h1>Create new TypeDocument</h1>
+
+    {{ include('type_document/_form.html.twig') }}
+
+    <a href="{{ path('app_type_document_index') }}">back to list</a>
+{% endblock %}

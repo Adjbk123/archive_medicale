@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout  Médecin{% endblock %}
+{% block breadcrumb %}
+Médecins
+{% endblock %}
+{% block bouton %}
+    <a class="btn btn-primary" href="{{ path('app_medecin_index') }}">Retour à la liste</a>
+{% endblock %}
+
+{% block body %}
+
+    {{ include('medecin/_form.html.twig') }}
+
+
+{% endblock %}
